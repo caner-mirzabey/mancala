@@ -3,28 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Mancala</title>
-    <!--<link rel="stylesheet" href="/webjars/bootstrap/3.3.4/css/bootstrap.css">-->
-    <!--&lt;!&ndash; Atmosphere &ndash;&gt;-->
-    <!--<script type="text/javascript" src="webjars/atmosphere-javascript/2.3.0/atmosphere.js"></script>-->
-    <!--&lt;!&ndash; Application &ndash;&gt;-->
-    <!--<script src="webjars/angularjs/1.5.5/angular.js"></script>-->
-    <!--<script src="/webjars/angularjs/1.5.5/angular-resource.js"></script>-->
-    <!--<script src="/webjars/angularjs/1.5.5/angular-route.js"></script>-->
-    <!--<script type="text/javascript" src="webjars/jquery/2.2.4/jquery.js"></script>-->
-    <!--<script src="/webjars/bootstrap/3.3.4/js/bootstrap.js"></script>-->
-    <!--<script type="text/javascript" src="javascript/mancala/mancala.js"></script>-->
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/3.3.4/css/bootstrap.css">
     <!-- Atmosphere -->
-    <script type="text/javascript"
-            src="https://raw.githubusercontent.com/Atmosphere/atmosphere-javascript/javascript-project-2.3.2/modules/javascript/src/main/webapp/javascript/atmosphere.js"></script>
+    <script type="text/javascript" src="webjars/atmosphere-javascript/2.3.0/atmosphere.js"></script>
     <!-- Application -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-resource.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular-route.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.js"></script>
-    <script type="text/javascript" src="javascript/mancala/mancala.js"></script>
+    <script src="webjars/angularjs/1.5.5/angular.js"></script>
+    <script src="/webjars/angularjs/1.5.5/angular-resource.js"></script>
+    <script src="/webjars/angularjs/1.5.5/angular-route.js"></script>
+    <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.js"></script>
+    <script src="/webjars/bootstrap/3.3.4/js/bootstrap.js"></script>
+    <script type="text/javascript" src="javascript/mancala.js"></script>
 </head>
 
 <body ng-app="mancala" ng-controller="MainController">
@@ -100,7 +88,6 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="#">Mancala (Kalah) Game</a>
-                    <p class="" style=".text-reversed: right">{{main.username}}</p>
                 </div>
             </div>
         </nav>
@@ -114,7 +101,7 @@
                     </p>
                 </div>
                 <div class="col-sm-8 text-left" ng-controller="GameController">
-                    <h1>Welcome</h1>
+                    <h1>Welcome {{main.username}}</h1>
                     <div ng-show="!main.joined">
                         <h3>Please either enter an existing game name to join, or type a new game name to create</h3>
                         <p></p>
