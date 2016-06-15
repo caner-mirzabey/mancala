@@ -1,7 +1,10 @@
-package com.caner.mirzabey.interview.backbase.mancala.config;
+package com.caner.mirzabey.interview.backbase.mancala.ws.config;
+
+import com.caner.mirzabey.interview.backbase.mancala.ws.config.util.AtmosphereServletRegistrationBeanFactory;
 
 import org.atmosphere.cpr.ContainerInitializer;
 import org.springframework.boot.context.embedded.ServletContextInitializer;
+import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,14 +13,18 @@ import javax.servlet.ServletException;
 import java.util.Collections;
 
 /**
- * Created by ecanmir on 10.06.2016.
+ * Created by ecanmir on 11.06.2016.
  */
 @Configuration
-public class AtmosphereConfig {
+public class GameWebSocketConfiguration {
+    @Bean
+    public ServletRegistrationBean atmosphereGameServlet() {
+        return AtmosphereServletRegistrationBeanFactory.createServletRegistrationBean("game", "/game/*");
+    }
 
     @Bean
-    public AtmosphereConfig.EmbeddedAtmosphereInitializer atmosphereInitializer() {
-        return new AtmosphereConfig.EmbeddedAtmosphereInitializer();
+    public GameWebSocketConfiguration.EmbeddedAtmosphereInitializer atmosphereInitializer() {
+        return new GameWebSocketConfiguration.EmbeddedAtmosphereInitializer();
     }
 
     private static class EmbeddedAtmosphereInitializer extends ContainerInitializer
@@ -29,5 +36,4 @@ public class AtmosphereConfig {
         }
 
     }
-
 }

@@ -3,16 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Mancala</title>
-    <link rel="stylesheet" href="/webjars/bootstrap/3.3.4/css/bootstrap.css">
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.4/css/bootstrap.css">
     <!-- Atmosphere -->
     <script type="text/javascript" src="webjars/atmosphere-javascript/2.3.0/atmosphere.js"></script>
     <!-- Application -->
     <script src="webjars/angularjs/1.5.5/angular.js"></script>
-    <script src="/webjars/angularjs/1.5.5/angular-resource.js"></script>
-    <script src="/webjars/angularjs/1.5.5/angular-route.js"></script>
+    <script src="webjars/angularjs/1.5.5/angular-resource.js"></script>
+    <script src="webjars/angularjs/1.5.5/angular-route.js"></script>
     <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.js"></script>
-    <script src="/webjars/bootstrap/3.3.4/js/bootstrap.js"></script>
-    <script type="text/javascript" src="javascript/mancala.js"></script>
+    <script src="webjars/bootstrap/3.3.4/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./javascript/mancala.js"></script>
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css">-->
+    <!--&lt;!&ndash; Atmosphere &ndash;&gt;-->
+    <!--<script type="text/javascript"-->
+    <!--src="https://raw.githubusercontent.com/Atmosphere/atmosphere-javascript/javascript-project-2.3.0/modules/javascript/src/main/webapp/javascript/atmosphere.js"></script>-->
+    <!--&lt;!&ndash; Application &ndash;&gt;-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>-->
+    <!--<-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.js"></script>-->
+    <!--<script type="text/javascript" src="javascript/mancala.js"></script>-->
 </head>
 
 <body ng-app="mancala" ng-controller="MainController">
@@ -97,7 +110,7 @@
                 <div class="col-sm-2 sidenav">
                     <h3>Logged In Users</h3>
                     <p ng-repeat="user in main.users | orderBy:'name'">
-                        <a href="#" ng-click="">{{user.name}}</a>
+                        <a href="#" ng-click="">{{user.username}}</a>
                     </p>
                 </div>
                 <div class="col-sm-8 text-left" ng-controller="GameController">
@@ -120,6 +133,41 @@
                         </form>
                         <p></p>
                         <p></p>
+                    </div>
+
+                    <div ng-show="main.joined">
+                        <div id="messages">
+
+                        </div>
+                        <div>
+                            <form name="game_message_form" class="">
+
+                                <div class="row">
+
+                                </div>
+                                <label for="game_message_input" class="sr-only">Username</label>
+                                <input id="game_message_input" name="game_message" class="form-control" type="text"
+                                       ng-model="game.message"
+                                       placeholder="Message..." required autofocus>
+                                <p></p>
+                                <div class="row">
+                                    <div class="col-xs-pull-0">
+                                        <button ng-click="game.sendMessage()"
+                                                ng-disabled="!game_message_form.game_message.$valid"
+                                                class="btn btn-lg btn-primary btn-block" type="submit">
+                                            Message
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-push-0">
+                                        <button ng-click="game.sendCommand()"
+                                                ng-disabled="!game_message_form.game_message.$valid"
+                                                class="btn btn-lg btn-primary btn-block" type="submit">
+                                            Command
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
 

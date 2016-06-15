@@ -1,4 +1,4 @@
-package com.caner.mirzabey.interview.backbase.mancala.config.util;
+package com.caner.mirzabey.interview.backbase.mancala.ws.config.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

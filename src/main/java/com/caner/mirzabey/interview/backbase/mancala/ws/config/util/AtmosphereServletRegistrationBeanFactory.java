@@ -1,4 +1,4 @@
-package com.caner.mirzabey.interview.backbase.mancala.config.util;
+package com.caner.mirzabey.interview.backbase.mancala.ws.config.util;
 
 import org.atmosphere.cpr.AtmosphereServlet;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;

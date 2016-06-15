@@ -1,4 +1,4 @@
-package com.caner.mirzabey.interview.backbase.mancala.config;
+package com.caner.mirzabey.interview.backbase.mancala.web.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

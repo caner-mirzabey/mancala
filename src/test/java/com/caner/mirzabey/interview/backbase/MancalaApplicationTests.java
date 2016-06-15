@@ -14,7 +14,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class MancalaApplicationTests {
 
     @Test
-    public void contextLoads() {
+    public void testHasAnotherTurn() {
+
     }
 
 }

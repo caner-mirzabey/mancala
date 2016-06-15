@@ -1,6 +1,6 @@
 package com.caner.mirzabey.interview.backbase.mancala.user;
 
-import com.caner.mirzabey.interview.backbase.mancala.ws.GameService;
+import com.caner.mirzabey.interview.backbase.mancala.ws.GameWebSocket;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 @Service
 public class UserRepository {
-    public static final Logger logger = LoggerFactory.getLogger(GameService.class);
+    public static final Logger logger = LoggerFactory.getLogger(GameWebSocket.class);
 
     private final Map<String, User> users = new ConcurrentHashMap<>();
 
@@ -24,9 +24,9 @@ public class UserRepository {
         return users.get(uuid);
     }
 
-    public User findByName(String name) {
+    public User findByUsername(String username) {
         for (User user : users.values()) {
-            if (user.getName().equals(name)) {
+            if (user.getUsername().equals(username)) {
                 return user;
             }
         }
@@ -35,7 +35,7 @@ public class UserRepository {
 
     public boolean insert(User user) {
         if (users.containsKey(user.getUuid()) && !StringUtils.isEmpty(user.getUuid()) &&
-            !StringUtils.isEmpty(user.getName())) {
+            !StringUtils.isEmpty(user.getUsername())) {
             return false;
         }
         users.put(user.getUuid(), user);

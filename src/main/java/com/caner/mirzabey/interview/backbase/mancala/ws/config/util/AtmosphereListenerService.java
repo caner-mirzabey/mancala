@@ -1,7 +1,8 @@
-package com.caner.mirzabey.interview.backbase.mancala.config;
+package com.caner.mirzabey.interview.backbase.mancala.ws.config.util;
 
 import org.atmosphere.cache.CacheMessage;
 import org.atmosphere.cpr.*;
+import org.atmosphere.websocket.WebSocketEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +18,9 @@ public class AtmosphereListenerService implements BroadcasterListener,
                                                   AsyncSupportListener,
                                                   AtmosphereResourceListener,
                                                   AtmosphereFrameworkListener,
-                                                  BroadcasterCacheListener {
+                                                  BroadcasterCacheListener,
+                                                  AtmosphereResourceEventListener,
+                                                  WebSocketEventListener {
     public static final Logger logger = LoggerFactory.getLogger(AtmosphereListenerService.class);
 
     ///BroadcasterListener Methods
@@ -136,5 +139,79 @@ public class AtmosphereListenerService implements BroadcasterListener,
     public void onRemoveCache(String broadcasterId, CacheMessage cacheMessage) {
         logger.debug("BroadcasterCacheListener.onRemoveCache --> broadcasterId::" + broadcasterId + ", CacheMessage::" +
                      cacheMessage.toString());
+    }
+
+    //AtmosphereResourceEventListener methods
+
+    @Override
+    public void onPreSuspend(AtmosphereResourceEvent event) {
+
+    }
+
+    @Override
+    public void onSuspend(AtmosphereResourceEvent event) {
+
+    }
+
+    @Override
+    public void onResume(AtmosphereResourceEvent event) {
+
+    }
+
+    @Override
+    public void onDisconnect(AtmosphereResourceEvent event) {
+
+    }
+
+    @Override
+    public void onBroadcast(AtmosphereResourceEvent event) {
+
+    }
+
+    @Override
+    public void onThrowable(AtmosphereResourceEvent event) {
+
+    }
+
+    @Override
+    public void onClose(AtmosphereResourceEvent event) {
+
+    }
+
+    @Override
+    public void onHeartbeat(AtmosphereResourceEvent event) {
+
+    }
+
+    //WebSocketEventListener methods
+
+    @Override
+    public void onHandshake(WebSocketEvent event) {
+
+    }
+
+    @Override
+    public void onMessage(WebSocketEvent event) {
+
+    }
+
+    @Override
+    public void onClose(WebSocketEvent event) {
+
+    }
+
+    @Override
+    public void onControl(WebSocketEvent event) {
+
+    }
+
+    @Override
+    public void onDisconnect(WebSocketEvent event) {
+
+    }
+
+    @Override
+    public void onConnect(WebSocketEvent event) {
+
     }
 }

@@ -1,5 +1,7 @@
 package com.caner.mirzabey.interview.backbase.mancala.game;
 
+import com.caner.mirzabey.interview.backbase.mancala.game.data.Game;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -19,15 +21,24 @@ public class GameRepository {
     private final Map<String, Game> games = new ConcurrentHashMap<>();
 
     public Game find(String name) {
-        return games.get(name);
+        Game game = null;
+        if (!StringUtils.isEmpty(name)) {
+            game = games.get(name);
+        }
+        return game;
     }
 
     public boolean insert(Game game) {
-        if (!StringUtils.isEmpty(game.getName()) && games.containsKey(game.getName())) {
-            return false;
+        if (!StringUtils.isEmpty(game.getName()) && !games.containsKey(game.getName())) {
+            games.put(game.getName(), game);
+            return true;
         }
-        games.put(game.getName(), game);
-        return true;
+        return false;
+    }
+
+    public void update(Game game) {
+        remove(game.getName());
+        insert(game);
     }
 
     public Collection<Game> findAll() {

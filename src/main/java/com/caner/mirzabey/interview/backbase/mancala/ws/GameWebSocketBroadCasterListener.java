@@ -1,8 +1,8 @@
 package com.caner.mirzabey.interview.backbase.mancala.ws;
 
-import com.caner.mirzabey.interview.backbase.mancala.game.Game;
 import com.caner.mirzabey.interview.backbase.mancala.game.GameRepository;
-import com.caner.mirzabey.interview.backbase.mancala.user.User;
+import com.caner.mirzabey.interview.backbase.mancala.game.data.Game;
+import com.caner.mirzabey.interview.backbase.mancala.game.exception.GameException;
 import com.caner.mirzabey.interview.backbase.mancala.user.UserRepository;
 
 import org.atmosphere.config.service.BroadcasterListenerService;
@@ -14,12 +14,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import static com.caner.mirzabey.interview.backbase.mancala.ws.GameWebSocket.getGameNameFromBroadcasterID;
+
 /**
  * Created by ecanmir on 12.06.2016.
  */
 @BroadcasterListenerService
-public class GameServiceBroadCasterListener implements BroadcasterListener {
-    public static final Logger logger = LoggerFactory.getLogger(GameServiceBroadCasterListener.class);
+public class GameWebSocketBroadCasterListener implements BroadcasterListener {
+    public static final Logger logger = LoggerFactory.getLogger(GameWebSocketBroadCasterListener.class);
 
     @Autowired
     private GameRepository gameRepository;
@@ -30,8 +32,15 @@ public class GameServiceBroadCasterListener implements BroadcasterListener {
     @Override
     public void onPostCreate(Broadcaster b) {
         logger.debug("BroadcasterListener.onPostCreate::" + b.getID());
-        if (GameService.isValidBroadcaster(b)) {
-            gameRepository.insert(new Game(b.getID(), null));
+        if (GameWebSocket.isValidBroadcaster(b)) {
+            String gameName = null;
+            try {
+                gameName = getGameNameFromBroadcasterID(b.getID());
+                gameRepository.insert(new Game(gameName));
+            }
+            catch (GameException e) {
+                logger.error("Game name parsing error", e);
+            }
         }
     }
 
@@ -43,7 +52,16 @@ public class GameServiceBroadCasterListener implements BroadcasterListener {
     @Override
     public void onPreDestroy(Broadcaster b) {
         logger.debug("BroadcasterListener.onPreDestroy::" + b.getID());
-        gameRepository.remove(b.getID());
+        if (GameWebSocket.isValidBroadcaster(b)) {
+            String gameName = null;
+            try {
+                gameName = getGameNameFromBroadcasterID(b.getID());
+                gameRepository.remove(gameName);
+            }
+            catch (GameException e) {
+                logger.error("Game name parsing error", e);
+            }
+        }
     }
 
     @Override
@@ -51,26 +69,17 @@ public class GameServiceBroadCasterListener implements BroadcasterListener {
         logger.debug("BroadcasterListener.onAddAtmosphereResource --> Broadcaster::{}, AtmosphereResource::{}",
                      b.getID(),
                      r.toString());
-        if (b.getID().startsWith(GameService.CONTEXT_PATH)) {
-            String username = r.getRequest().getParameter(GameService.USERNAME_REQUEST_PARAMETER);
-            userRepository.insert(new User(r.uuid(), username));
-        }
     }
 
     @Override
     public void onRemoveAtmosphereResource(Broadcaster b, AtmosphereResource r) {
-
         logger.debug("BroadcasterListener.onRemoveAtmosphereResource --> Broadcaster::" + b.getID() + ", resource::" +
                      r.toString());
-        if (b.getID().startsWith(GameService.CONTEXT_PATH)) {
-            userRepository.remove(r.uuid());
-        }
     }
 
     @Override
     public void onMessage(Broadcaster b, Deliver deliver) {
-        logger.debug(
-                "BroadcasterListener.onMessage --> Broadcaster::" + b.getID() + ", Deliver::" + deliver.toString());
+        logger.debug("BroadcasterListener.onMessage --> Broadcaster::{}, Deliver::{}", b.getID(), deliver.toString());
     }
 
 }

@@ -1,6 +1,6 @@
 package com.caner.mirzabey.interview.backbase.mancala.ws;
 
-import com.caner.mirzabey.interview.backbase.mancala.game.Game;
+import com.caner.mirzabey.interview.backbase.mancala.game.data.Game;
 import com.caner.mirzabey.interview.backbase.mancala.user.User;
 
 import java.util.ArrayList;
@@ -9,21 +9,23 @@ import java.util.List;
 /**
  * Created by ecanmir on 11.06.2016.
  */
-public class GameMessage {
+public class GamePageRefreshMessage {
     private final long time = System.currentTimeMillis();
-    private final User user;
-
+    private String uuid;
+    private String username;
     private String message;
     private List<User> users = new ArrayList<>();
     private List<Game> games = new ArrayList<>();
 
-    public GameMessage(User user, String message) {
-        this.user = user;
+    public GamePageRefreshMessage(String uuid, String username, String message) {
+        this.uuid = uuid;
+        this.username = username;
         this.message = message;
     }
 
-    public GameMessage(User user, String message, List<User> users, List<Game> games) {
-        this.user = user;
+    public GamePageRefreshMessage(String uuid, String username, String message, List<User> users, List<Game> games) {
+        this.uuid = uuid;
+        this.username = username;
         this.message = message;
         this.users = users;
         this.games = games;
@@ -33,8 +35,20 @@ public class GameMessage {
         return time;
     }
 
-    public User getUser() {
-        return user;
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getMessage() {
@@ -63,11 +77,11 @@ public class GameMessage {
 
     @Override
     public String toString() {
-        return "GameMessage{" +
+        return "GamePageRefreshMessage{" +
                "time=" + time +
-               ", user=" + user +
+               ", username='" + username + '\'' +
                ", message='" + message + '\'' +
-               ", user=" + users +
+               ", users=" + users +
                ", games=" + games +
                '}';
     }

@@ -7,18 +7,11 @@ import java.util.Objects;
  */
 public class User {
     private String uuid;
-    private String name;
+    private String username;
 
-    public User() {
-    }
-
-    public User(String uuid) {
+    public User(String uuid, String username) {
         this.uuid = uuid;
-    }
-
-    public User(String uuid, String name) {
-        this(uuid);
-        this.name = name;
+        this.username = username;
     }
 
     public String getUuid() {
@@ -29,19 +22,19 @@ public class User {
         this.uuid = uuid;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public String toString() {
         return "User{" +
                "uuid='" + uuid + '\'' +
-               ", name='" + name + '\'' +
+               ", username='" + username + '\'' +
                '}';
     }
 
@@ -54,11 +47,11 @@ public class User {
             return false;
         }
         User user = (User) o;
-        return Objects.equals(getUuid(), user.getUuid()) && Objects.equals(getName(), user.getName());
+        return Objects.equals(getUuid(), user.getUuid()) && Objects.equals(getUsername(), user.getUsername());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getUuid(), getName());
+        return Objects.hash(getUuid(), getUsername());
     }
 }
