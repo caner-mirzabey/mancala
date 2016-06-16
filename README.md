@@ -1,3 +1,6 @@
-# Mancala (Kalah) Game
+# Kalah (Mancala) Game
+
+
 ## Requiements
+
 Download 

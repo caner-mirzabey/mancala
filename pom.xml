@@ -3,11 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.caner.mirzabey.interview.backbase</groupId>
-    <artifactId>mancala</artifactId>
+    <groupId>com.caner.mirzabey</groupId>
+    <artifactId>kalah</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>mancala</name>
+    <name>kalah</name>
 
     <description>Demo project for Spring Boot</description>
 

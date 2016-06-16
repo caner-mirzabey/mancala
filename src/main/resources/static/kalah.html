@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Kalah</title>
+    <link rel="stylesheet" href="webjars/bootstrap/3.3.4/css/bootstrap.css">
+    <!-- Atmosphere -->
+    <script type="text/javascript" src="webjars/atmosphere-javascript/2.3.0/atmosphere.js"></script>
+    <!-- Application -->
+    <script src="webjars/angularjs/1.5.5/angular.js"></script>
+    <script src="webjars/angularjs/1.5.5/angular-resource.js"></script>
+    <script src="webjars/angularjs/1.5.5/angular-route.js"></script>
+    <script type="text/javascript" src="webjars/jquery/2.2.4/jquery.js"></script>
+    <script src="webjars/bootstrap/3.3.4/js/bootstrap.js"></script>
+    <script type="text/javascript" src="./javascript/kalah.js"></script>
+
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.css">-->
+    <!--&lt;!&ndash; Atmosphere &ndash;&gt;-->
+    <!--<script type="text/javascript"-->
+    <!--src="https://raw.githubusercontent.com/Atmosphere/atmosphere-javascript/javascript-project-2.3.0/modules/javascript/src/main/webapp/javascript/atmosphere.js"></script>-->
+    <!--&lt;!&ndash; Application &ndash;&gt;-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-resource.js"></script>-->
+    <!--<-->
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>-->
+    <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.js"></script>-->
+    <!--<script type="text/javascript" src="javascript/kalah.js"></script>-->
+</head>
+
+<body ng-app="kalah" ng-controller="MainController">
+
+<div ng-controller="LoginController">
+    <div class="container" ng-hide="main.loggedin">
+        <style>
+            body {
+                padding-top: 40px;
+                padding-bottom: 40px;
+            }
+
+            .form-signin {
+                max-width: 330px;
+                padding: 15px;
+                margin: 0 auto;
+            }
+
+            .form-signin .form-signin-heading,
+            .form-signin .checkbox {
+                margin-bottom: 10px;
+            }
+
+            .form-signin .checkbox {
+                font-weight: normal;
+            }
+
+            .form-signin .form-control {
+                position: relative;
+                height: auto;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                padding: 10px;
+                font-size: 16px;
+            }
+
+            .form-signin .form-control:focus {
+                z-index: 2;
+            }
+
+            .form-signin input[type="email"] {
+                margin-bottom: -1px;
+                border-bottom-right-radius: 0;
+                border-bottom-left-radius: 0;
+            }
+
+            .form-signin input[type="password"] {
+                margin-bottom: 10px;
+                border-top-left-radius: 0;
+                border-top-right-radius: 0;
+            }
+        </style>
+
+        <div class="container">
+            <form name="login_form" class="form-signin">
+                <h2 class="form-signin-heading">Please sign in</h2>
+
+                <label for="username_input" class="sr-only">Username</label>
+                <input id="username_input" name="username" class="form-control" type="text" ng-model="login.username"
+                       placeholder="Username" required autofocus>
+                <p ng-show="!login_form.username.$valid">Please enter a username</p>
+                <p></p>
+                <button ng-click="login.doLogin()" ng-disabled="!login_form.username.$valid"
+                        class="btn btn-lg btn-primary btn-block" type="submit">
+                    Connect
+                </button>
+            </form>
+        </div>
+    </div>
+    <div ng-show="main.loggedin">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Kalah (Mancala) Game</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container-fluid text-center">
+            <div class="row content">
+                <div class="col-sm-2 sidenav">
+                    <h3>Logged In Users</h3>
+                    <p ng-repeat="user in main.users | orderBy:'name'">
+                        <a href="#" ng-click="">{{user.username}}</a>
+                    </p>
+                </div>
+                <div class="col-sm-8 text-left" ng-controller="GameController">
+                    <h1>Welcome {{main.username}}</h1>
+                    <div ng-show="!main.joined">
+                        <h3>Please either enter an existing game name to join, or type a new game name to create</h3>
+                        <p></p>
+                        <p></p>
+                        <h5>Join the game</h5>
+                        <form name="game_form" class="">
+                            <label for="game_name_input" class="sr-only">Username</label>
+                            <input id="game_name_input" name="game_name" class="form-control" type="text"
+                                   ng-model="game.name"
+                                   placeholder="Please enter a game name" required autofocus>
+                            <p></p>
+                            <button ng-click="game.join()" ng-disabled="!game_form.game_name.$valid"
+                                    class="btn btn-lg btn-primary btn-block" type="submit">
+                                Join
+                            </button>
+                        </form>
+                        <p></p>
+                        <p></p>
+                    </div>
+
+                    <div ng-show="main.joined">
+                        <div id="messages">
+
+                        </div>
+                        <div>
+                            <form name="game_message_form" class="">
+
+                                <div class="row">
+
+                                </div>
+                                <label for="game_message_input" class="sr-only">Username</label>
+                                <input id="game_message_input" name="game_message" class="form-control" type="text"
+                                       ng-model="game.message"
+                                       placeholder="Message..." required autofocus>
+                                <p></p>
+                                <div class="row">
+                                    <div class="col-xs-pull-0">
+                                        <button ng-click="game.sendMessage()"
+                                                ng-disabled="!game_message_form.game_message.$valid"
+                                                class="btn btn-lg btn-primary btn-block" type="submit">
+                                            Message
+                                        </button>
+                                    </div>
+                                    <div class="col-xs-push-0">
+                                        <button ng-click="game.sendCommand()"
+                                                ng-disabled="!game_message_form.game_message.$valid"
+                                                class="btn btn-lg btn-primary btn-block" type="submit">
+                                            Command
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2 sidenav">
+                    <h3>Games</h3>
+                    <p ng-repeat="game in main.games | orderBy:'name'"><a href="#">{{game.name}}</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="container-fluid text-center">
+        <h2>{{main.status}}</h2>
+    </footer>
+</div>
+
+</body>
+</html>
